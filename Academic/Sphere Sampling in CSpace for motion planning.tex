@@ -1,0 +1,104 @@
+\documentclass{article}
+
+\usepackage{full page}  % make the margins somewhat smaller than the default
+\usepackage{graphicx}    % needed for including graphics e.g. EPS, PS
+\usepackage[]{algorithm2e}
+\usepackage{mathtools}
+\usepackage{listings}  % needed for source code listings
+\lstset{language=Java}         
+
+% set the document title, author, and date here.
+%  once set, the \maketitle command (within the document)
+%  will display them nicely
+\title{Sphere Sampling in CSpace for Motion Planning}
+\author{Yinan Zhang}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+Traditionally, sampling based motion methods use discrete data to construct paths for motion tasks. The disadvantage of this kind of implementation is obvious: 
+
+\begin{enumerate}
+  \item CSpace is a continuous space, discrete samples cannot represent it well;
+  \item Many samples are actually not necessary and consume a lot of memory, e.t. samples far away from obstacles.
+\end{enumerate}
+
+Our method is to sample spheres which contain collision-free area in configuration space. Using these hyper-spheres in c-space, we can:
+\begin{enumerate}
+  \item describe configuration space in a continuous way;
+  \item find an optimal path using a modified A* search;
+  \item save memory by reducing unnecessary samples.
+\end{enumerate}
+
+\section{Sphere Sampling Algorithm}
+\label{Sphere sampling algorithm}
+ \begin{algorithm}
+ 	\KwData{Configuration Space}
+ 	\KwResult{Spheres that cover most of the free space}
+ 	s0 = sampleSphere( randomly position );\\
+ 	S = \{s0\}; \\
+ 	\tcp{Every two boundary points distance equals to $\delta$}
+ 	boundaryQueue = a queue that contains all boundary points of s0;\\
+ 	\While{ boundaryQueue is not empty }{
+ 		\tcp{Candidate point to sample next sphere.}
+ 		point = boundaryQueue.pop(); \\
+ 		\If{ point not in any spheres } {
+ 			si = sampleSphere( point );\\
+ 			\If{ $\delta$ $\leq$ si.radius } {
+ 				S = S $\cap$ \{si\}; \\
+ 				boundaryQueue.put( all boundary points of si ); 
+ 			}
+ 		}
+ 	}
+ 	\caption{ Sphere sampling algorithm }
+ \end{algorithm}
+
+	\subsection{Something we know}
+		\subsubsection{Will the algorithm stop?}
+ 			\label{Finite number of spheres}
+ 			As is shown in the algorithm, we get boundary points of an existing sphere by limiting the distance between every two points to be equal to $\delta$. Then the algorithm samples new spheres centered at these points. So the distance between two spheres centers is always larger than or equal to $\delta$. 
+
+ 			The problem is equivalant to proof there could be finite number of points put in the space such that the distance between every two points is larger than or equal to $\delta$.
+
+ 			Assume we partition the whole configuration space( including free space and obstacle space ) into hyper-cubes. The length of every edge of these hyper-cubes is exactly $\delta$. As long as the configuration space has finite volume, the number of hyper-cubes is finite. Assume the number of hyper-cubes is N, the number of hyper-cubes that is totall or partly in free space is less than N. Thus the number of spheres is finite, and less than N.
+
+ 			So the algorithm will always converge.	
+
+ 		\subsubsection{$\delta$-clearance}
+ 			\cite{Karaman2011} proposed an algorithm, named PRM*, to find a path. It requires the actual optimal path to have $\delta$-clearance so the algorithm can find a approximately optimal path. Yet, the algorithm cannot explicitly control the quality of the path by defining $\delta$. In our alogrithm, we can define the actually value of $\delta$ and control the coverage of free-space by sampling spheres. 
+
+ 		\subsubsection{Find Containing Spheres}
+ 			In the algorithm, we need to know if a candidate point is inside any spheres. Naively, we need to iterate each existing spheres to determine if a point is inside, which requires O(n) time. This can fortunately be done with less time by hashing spheres to uniform grids of the c-space. Each grid contains references to spheres that intersect/contain the grid. By hasing a candidate point in the same way, we can easily know if a point is inside any spheres already.
+
+ 			(Can we use Locally Sensitive Hashing?)  
+
+ 		\subsubsection{Inaccurate matric}
+			Suppose we have an inccurate matric which gives us the distance to obstacle:
+ 			dist[i] = accurate\_dist[i]/c[i], where 1 $\leq$ c[i] $\leq$ upper\_bound. When sampling at a point near the obstacle, dist[i] = accurate\_dist[i]/c[i] = $\delta$ the algorithm will stop sampling at that point. So the farthest distance from spheres boundary to obstacles is $\delta$ * upper\_bound. 
+
+ 			If the optimal path has $\delta$ * upper\_bound clearance. The algorithm can still cover the path and eventually find it.
+
+    \subsubsection{How to deal with unlinked configuration space?}
+      A C-space can be partitioned into several parts by obstacles, each part is not linked to others. 
+
+	\subsection{Some Questions:}
+ 		\subsubsection{How to use less hyper-spheres to cover the space?}
+ 		\subsubsection{How to get the distance to obstacles more accurately?}
+
+\section{Modified A* search}
+
+
+\begin{thebibliography}{9}
+
+\bibitem{Karaman2011}
+  Karaman, Sertac, and Emilio Frazzoli,
+  \emph{"Sampling-based algorithms for optimal motion planning"}.
+  The International Journal of Robotics Research 30.7 (2011): 846-894.
+\end{thebibliography}
+
+
+
+
+\end{document}
