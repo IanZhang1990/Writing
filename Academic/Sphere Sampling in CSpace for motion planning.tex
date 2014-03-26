@@ -23,12 +23,13 @@ Traditionally, sampling based motion methods use discrete data to construct path
 \begin{enumerate}
   \item CSpace is a continuous space, discrete samples cannot represent it well;
   \item Many samples are actually not necessary and consume a lot of memory, e.t. samples far away from obstacles.
+  \item The way to get optimal path using samples in the free space requires building a dense roadmap, like PRM*.
 \end{enumerate}
 
 Our method is to sample spheres which contain collision-free area in configuration space. Using these hyper-spheres in c-space, we can:
 \begin{enumerate}
   \item describe configuration space in a continuous way;
-  \item find an optimal path using a modified A* search;
+  \item find an optimal path;
   \item save memory by reducing unnecessary samples.
 \end{enumerate}
 
@@ -56,6 +57,9 @@ Our method is to sample spheres which contain collision-free area in configurati
  \end{algorithm}
 
 	\subsection{Something we know}
+                \subsunsection{How to interpret the algorithm? }
+                        Our algorithm can be viewed as a combination of RRT and visibility-PRM. In each iteration of our algorithm, we get some more spheres center at the edge of existing ones, it rapidly and randomly grows until converge. Unlike RRT, these spheres build not only a tree rooted at the starting sphere, if we build the overlapping relationship of them, each sphere can also be viewed as a node of a roadmap. In a visibility PRM algorithm, if we limit the range a sample can view to a certain distance, or the distance from itself to the nearest obstacle, we can get pretty much the same result, which is why I view these spheres as a visibility roadmap. Inside each sphere, a robot is free to go anywhere without worrying about collision. 
+
 		\subsubsection{Will the algorithm stop?}
  			\label{Finite number of spheres}
  			As is shown in the algorithm, we get boundary points of an existing sphere by limiting the distance between every two points to be equal to $\delta$. Then the algorithm samples new spheres centered at these points. So the distance between two spheres centers is always larger than or equal to $\delta$. 
@@ -80,14 +84,18 @@ Our method is to sample spheres which contain collision-free area in configurati
 
  			If the optimal path has $\delta$ * upper\_bound clearance. The algorithm can still cover the path and eventually find it.
 
-    \subsubsection{How to deal with unlinked configuration space?}
-      A C-space can be partitioned into several parts by obstacles, each part is not linked to others. 
+                \subsubsection{How to fast determine if there exist a path between two configurations?}
+                        One thing I like particularly about this methods is that it can fast determine if there exist a feasible path between two configurations. Usually in PRM* which builds a very dense roadmap, if we want to know whether there exists a path or not, we should run the A* search on the graph, by iterating all nodes in the graph, A* search will finally tell you it failed. It this case, A* search requires exponential time because it has to iterate all nodes in very depth of the graph. 
+                        However, if we view the problem as finding a chain of spheres that contains start&goal configurations at the head&end of the chain, it will cost much less time to search the roadmap built by overlapping spheres. Because the number of spheres will be much less than the number of samples in a dense roadmap, and the number of edges is way less than a dense roadmap, which means even in the worst case, an exponential runtime will be much less than that required by A* searching a dense graph. 
+   
+                \subsubsection{How to deal with unlinked configuration space?}
+                        A C-space can be partitioned into several parts by obstacles, each part is not linked to others, and there is not path from one part to another. 
 
 	\subsection{Some Questions:}
  		\subsubsection{How to use less hyper-spheres to cover the space?}
  		\subsubsection{How to get the distance to obstacles more accurately?}
 
-\section{Modified A* search}
+\section{A* search}
 
 
 \begin{thebibliography}{9}
