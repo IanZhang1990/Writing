@@ -14,9 +14,9 @@
 \BOOKMARK [2][-]{subsection.2.3}{Some Questions:}{section.2}% 14
 \BOOKMARK [3][-]{subsubsection.2.3.1}{How to use less hyper-spheres to cover the space?}{subsection.2.3}% 15
 \BOOKMARK [3][-]{subsubsection.2.3.2}{How to get the distance to obstacles more accurately?}{subsection.2.3}% 16
-\BOOKMARK [1][-]{section.3}{A* search}{}% 17
+\BOOKMARK [1][-]{section.3}{Path search search}{}% 17
 \BOOKMARK [2][-]{subsection.3.1}{Something we know}{section.3}% 18
 \BOOKMARK [3][-]{subsubsection.3.1.1}{How to reduce unnessary neighbors}{subsection.3.1}% 19
 \BOOKMARK [2][-]{subsection.3.2}{Something we don't}{section.3}% 20
 \BOOKMARK [3][-]{subsubsection.3.2.1}{How to estimate the quality of the path?}{subsection.3.2}% 21
-\BOOKMARK [2][-]{subsection.3.3}{Demo}{section.3}% 22
+\BOOKMARK [1][-]{section.4}{Demo}{}% 22

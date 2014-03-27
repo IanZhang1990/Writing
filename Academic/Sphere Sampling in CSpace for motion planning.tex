@@ -133,7 +133,9 @@ Our method is to sample spheres which contain collision-free area in configurati
  		\subsubsection{How to get the distance to obstacles more accurately?}
     For now, we shoot several rays from a configuration to all directions in C-Space, then return the shortest distance to obstacles. This is actually not a very good idea, but since everybody else is using it. I didn't hesitate to use it. However, this is not good, actually, it still uses discrete data to represent continuous space. This method is not accurate. If there is a better way to know the distance to nearest obstacles, it would be great.
 
-\section{A* search}
+\section{Path search search}
+  We use A* search to find the path.
+
   \label{Path searching algorithm}
   \begin{algorithm}[H]
   \KwData{spheres, start configuration, goal configuration}
@@ -192,7 +194,7 @@ Our method is to sample spheres which contain collision-free area in configurati
 
       One thing I can think of is post processing. After getting a path, we can determine if we can connect every other or more points in the path directly, thus avoids redundant distance. ( Triangular inequality ) 
 
-  \subsection{Demo}
+\section{Demo}
     \begin{figure}
       \centering
       \includegraphics[width=4in]{Path1.PNG}
