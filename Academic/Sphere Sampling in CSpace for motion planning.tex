@@ -90,17 +90,17 @@ Our method is to sample spheres which contain collision-free area in configurati
 
       However, if we view the problem as finding a chain of spheres that contains start and goal configurations at the head and end of the chain, it will cost much less time to search the roadmap built by overlapping spheres. Because the number of spheres will be much less than the number of samples in a dense roadmap, and the number of edges is way less than a dense roadmap, which means even in the worst case, an exponential runtime will be much less than that required by A* searching a dense graph. 
    
-    \subsubsection{Does the shape of actually C-Space matter? }
+    \subsubsection{Does the shape of C-Space matter? }
       I think the answer is clearly a YES. For example, the C-Space for a two-joint robot arm is donut-shaped. However, I represent it in a square-shaped space by connecting the ends of X and Y axis to the heads of them. 
 
       Also, if the moving range of two joints are not both [0, 2$\pi$], say one is [0, $\pi$/100], the space would look like a really narrow rectangle. However, I still recommend scalling the space to a cube-like shape with equal length of both dimension. Because after sampling, if we scale the space back to what it was, spheres became ellipses, these ellipses covere more space than the same number of spheres. 
 
       Another benefit of transforming the space is we probably don't need to care about the matric in original C-Space, I simply use Euclidean distance. 
 
-    \subsubsection{How to deal with unlinked configuration space?}
-      A C-space can be partitioned into several parts by obstacles, each part is not linked to others, and there is not path from one part to another. 
+    \subsubsection{How to deal with unlinked parts of configuration space?}
+      A C-space can be partitioned into several parts by obstacles, each part is not linked to others, and there is no path from one to another. 
 
-      The proposed solution to this problem is exactly what visibility PRM will do. In v-PRM, coverage is measured by the number of attemps failed to get a new sample. For example, if we failed n times to get a new sample, the coverage of the visibility graph to the C-space is 1 - 1/n. Here, I think this method can also be used to solved our problem, given an acceptable failure times, say k, we try to randomly get a configuration that is not in any sphere. If we successfully get a new sample with less than k attemps, run the sphere sampling algorithm again, then we can cover the isolated part of C-space. If we cannot get a new sample within k attemps, our spheres have covered 1 - 1/k of the c-space. 
+      The proposed solution to this problem is exactly what visibility PRM will do. In v-PRM, coverage is measured by the number of attemps failed to get a new sample. For example, if we failed n times to get a new sample, the coverage of the visibility graph to the C-space is 1 - 1/n. Here, I think this method can also be used to solved our problem, given an acceptable failure times, say k, we try to randomly sample a configuration that is not in any sphere. If we successfully get a new sample within k attemps, run the sphere sampling algorithm again, then we can cover the isolated part of C-space. If we cannot get a new sample within k attemps, our spheres have covered 1 - 1/k of the c-space. 
 
     \subsubsection{What else can these spheres do?}
       Bialkowski uses similar spheres in his work \cite{Bialkowski2012} to help doing efficient collision detection.
@@ -188,11 +188,20 @@ Our method is to sample spheres which contain collision-free area in configurati
     \subsubsection{How to estimate the quality of the path?}
       I don't know how to make sure the algorithm finds the optimal path. This is something I wrote last time:
 
-        "Assuming the path maintains $\delta$ clearance, the worst path found by our algorithm is this: the optimal path is in a chain of spheres with radius $\delta$. The point our algorithm chooses to use is $\delta$ / 2 away from the actual point the path is going through.
-
-        Then the chosen path is 2 times of length of the actual optimal path. "
+        "Assuming the path maintains $\delta$ clearance, the worst path found by our algorithm is this: the optimal path is in a chain of spheres with radius $\delta$. The point our algorithm chooses to use is $\delta$ / 2 away from the actual point the path is going through.Then the chosen path is 2 times of length of the actual optimal path. "
 
       One thing I can think of is post processing. After getting a path, we can determine if we can connect every other or more points in the path directly, thus avoids redundant distance. ( Triangular inequality ) 
+
+    \subsubsection{A better to find the path?}
+      A* search is fine, it finds good quality path. However, A* search still try to discretize information we get from sampling spheres, which is the reason why we get 2 times longer path in the worst case. A method I think probably will work is to solve an equation and find the point. The equation requires: 
+      \begin{enumerate}
+        \item The point is in the intersection of the line from its parent to its son and the sphere it belongs to.
+        \item The new path is still totally inside the same sphere chain containing the original path. 
+      \end{enumerate}
+      
+      This is equivalent to post processing, I guess. Do it several times until it converge, then the path should be optimal.
+
+      Proof? Err.... Let me think about it....  
 
 \section{Demo}
     \begin{figure}
