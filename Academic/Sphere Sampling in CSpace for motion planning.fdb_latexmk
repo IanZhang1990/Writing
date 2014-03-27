@@ -1,7 +1,13 @@
 # Fdb version 3
-["pdflatex"] 1395602087 "Sphere Sampling in CSpace for motion planning.tex" "Sphere Sampling in CSpace for motion planning.pdf" "Sphere Sampling in CSpace for motion planning" 1395602087
-  "Sphere Sampling in CSpace for motion planning.aux" 1395602087 1395 48208f904394607f40fb8c0d87ce858d ""
-  "Sphere Sampling in CSpace for motion planning.tex" 1395602081 5462 8d04b5e5ea96e39439f2aaae3ba1d7d0 ""
+["pdflatex"] 1395894734 "Sphere Sampling in CSpace for motion planning.tex" "Sphere Sampling in CSpace for motion planning.pdf" "Sphere Sampling in CSpace for motion planning" 1395894734
+  "CSpace.PNG" 1395265596 72423 0ad5fc83360ad32fd06b29ac9b1395d5 ""
+  "Movement1.PNG" 1395457607 14913 ca8e578dfa795981f587a175df28fc80 ""
+  "Movement2.PNG" 1395859399 17666 ce3328c6b5f3a813a90547a1c2632149 ""
+  "Path1.PNG" 1395457603 80101 02b36c76b72ea19e66af4486f3a3b9bc ""
+  "Path2.PNG" 1395859394 80517 50bd8865ab05b0ad9c00d5800d124727 ""
+  "PhysicSpace_Origin.PNG" 1395886756 7120 649f112ca214223c74f93333a6de93c1 ""
+  "Sphere Sampling in CSpace for motion planning.aux" 1395894734 3500 1bccfa64ec2f6dcb558d39457976610b ""
+  "Sphere Sampling in CSpace for motion planning.tex" 1395894732 15256 cd5a3a7a35b5ff1eef2e4287935e6df0 ""
   "d:/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii" 1393703390 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "d:/texlive/2013/texmf-dist/tex/generic/oberdiek/etexcmds.sty" 1393703428 7612 c47308d923ec19888707b0f1792b326a ""
   "d:/texlive/2013/texmf-dist/tex/generic/oberdiek/ifluatex.sty" 1393703192 7324 11d14f318d865f420e692d4e6c9c18c3 ""
