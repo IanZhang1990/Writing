@@ -108,7 +108,7 @@ Our method is to sample spheres which contain collision-free area in configurati
       For multi-robot motion planning problem, this spheres, generated in a single robot's configuration space, can be reused for other robots. It saves a lot of time because, we don't need to sample in multi-robot configuration space. This is mentioned in \cite{Bialkowski2013} 
 
   \subsection{Demo}
-    \begin{figure}
+    \begin{figure}[ht]
       \centering
       \includegraphics[width=4in]{PhysicSpace_Origin.PNG}
       \caption{Physics World}
@@ -117,7 +117,7 @@ Our method is to sample spheres which contain collision-free area in configurati
 
     Figure \ref{fig:PhysicsWorld} is the physics world a 2-joint robot arm is in. Black circles are obstacles. The robot arm cannot move in X or Y axis, but can rotate two joints in range [0, 2$\pi$]
 
-    \begin{figure}
+    \begin{figure}[ht]
       \centering
       \includegraphics[width=4in]{CSpace.PNG}
       \caption{C-Space covered by spheres}
@@ -204,13 +204,13 @@ Our method is to sample spheres which contain collision-free area in configurati
       Proof? Err.... Let me think about it....  
 
 \section{Demo}
-    \begin{figure}
+    \begin{figure}[h]
       \centering
       \includegraphics[width=4in]{Path1.PNG}
       \caption{Path finding problem 1}
       \label{fig:path1}
     \end{figure}
-    \begin{figure}
+    \begin{figure}[h]
       \centering
       \includegraphics[width=4in]{Path2.PNG}
       \caption{Path finding problems 2}
@@ -221,14 +221,14 @@ Our method is to sample spheres which contain collision-free area in configurati
 
     Corresponding robot movements are shown in Figure \ref{fig:move1} and Figure \ref{fig:move2}:
 
-    \begin{figure}
+    \begin{figure}[h]
       \centering
       \includegraphics[width=4in]{Movement1.PNG}
       \caption{Robot Movement 1}
       \label{fig:move1}
     \end{figure}
 
-    \begin{figure}
+    \begin{figure}[h]
       \centering
       \includegraphics[width=4in]{Movement2.PNG}
       \caption{Robot Movement 2}
@@ -243,7 +243,18 @@ Our method is to sample spheres which contain collision-free area in configurati
     \url{http://youtu.be/8IY8MltdVGI}
     \href{http://youtu.be/8IY8MltdVGI}{ Motion Planning solution 2 }
 
+\section{Experiment}
+  \subsection{ Num. of Spheres VS Obstacle area in C-Space }
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=4in]{Chart.PNG}
+      \caption{Chart}
+      \label{fig:chart1}
+    \end{figure}
     
+    In order to estimate the memory cost of the algorithm, we use the number of spheres as a criteria. Because spheres are the only data we need to reserve after running the algorithm. The number of spheres is a hint of memory cost of representing C-Space as a sphere-based roadmap. 
+
+    Figure \ref{fig:chart1} shows the relationship between the number of spheres and the obstacle area in C-Space.
 
 \begin{thebibliography}{9}
 
