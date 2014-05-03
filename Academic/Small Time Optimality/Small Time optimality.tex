@@ -1,0 +1,35 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+
+
+\title{Small Time Optimality}
+\date{}
+\begin{document}
+  \maketitle
+  \section{Model}
+	A Reed Shepp car model can be described by two variables $\boldsymbol{v}$ and $\boldsymbol{\omega}$ which are the speed and angular velocity. The turning radius is $r=\frac{ \boldsymbol{v} }{ \boldsymbol{\omega} }$.\\
+	
+	We use $(x,y,\theta)$ to describe the state of a R.S car, $(x,y)$ being the position of the car, while $\theta$ being the orientation.
+  
+  \section{Small Time Optimality}
+  \begin{theorem}
+  	There exist a minimium lenth $l$ for a R.S car to turn angle $\Delta\theta$. 
+  \end{theorem}
+  
+  $\textbf{Proof}$: To turning a car with angle $\Delta\theta$ with the least amount of time, The control has to be $l^{+}l^{-}l^{+}l^{-}l^{+}...$ or $r^{+}r^{-}r^{+}r^{-}r^{+}...$ (keep turning counterclockwisely or clockwisely)\\ 
+  
+  Assume the $i-th$ operation turns $\Delta\theta_{i}$ angles, the number of operations is $n$ ($\forall{\Delta\theta_{i}} \geq 0$ or $\forall{\Delta\theta_{i}} \leq 0$, and $\sum_{i=1}^{n}\Delta\theta_{i} = \Delta\theta$). The total path length of these operation is:\\
+  
+  $\sum_{i=1}^{n}r\Delta\theta_{i}$ = $r\sum_{i=1}^{n}\Delta\theta_{i}$ = $r\Delta\theta$.
+
+  which has nothing to do with the number of operations, neither with the angle of each turn.  
+  
+  \begin{theorem}
+  	For a start configuration s = $(x_{s},y_{s},\theta_{s})$ and a goal configuration g = $(x_{g},y_{g},\theta_{g})$, and a path $\sigma$ with length $l$. $\sigma$ cannot be the optimal path 
+  \end{theorem} 
+  
+\end{document}
