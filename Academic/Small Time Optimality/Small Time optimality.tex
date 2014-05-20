@@ -52,7 +52,7 @@
   % Theorem about the small time optimality.
   %---------------------------------------------------------------------------
   \begin{theorem}
-  	If there is clearance of size $R > \frac{r_{min}•\pi}{2}$ at any point p in workspace, there exist a $R_{in}$-ball centered at p, $R_{in} \in (0, R)$, such between any points in the $R_{in}$-ball with any orientaion, there exists a feasible optimal trajectory.
+  	If there is clearance of size $R > \frac{r_{min}•\pi}{2}$ at any point p in workspace, there exist a $R_{in}$-ball centered at p, $R_{in} \in (0, R)$, such that between any points in the $R_{in}$-ball with any orientaion, there exists a feasible optimal trajectory.
   \end{theorem} 
   
   $\textbf{Proof}$: Assume $S = (x_{s}, y_{s})$ and $G = (x_{g}, y_{g})$ with orientations $\theta_{s}$ and $\theta_{g}$ are start and goal positions in workspace. We denode $|SG| = 2\delta$. \\
@@ -61,7 +61,7 @@
   
   \includegraphics[scale=0.7]{Ellipse}\\
   
-  Since any point P out side the ellipse will have $|SP| + |PG| > r_{min}\pi + 2\delta$, the optimal path from S to G with any orientation must be within the ellipse.\\
+  Since any point P out of the ellipse will have $|SP| + |PG| > r_{min}\pi + 2\delta$, the optimal path from S to G with any orientation must be within the ellipse.\\
   
   $C'$ is a intersect point of line $SG$ and the ellipse. $O$ is the mid point of S and G. \\
   
@@ -71,6 +71,38 @@
   
   By rotating S and G about their mid point O, the trajectory of C' is the edge if another ball with radius $\delta + \frac{r_{min}\pi}{2}$. And between any points in the inner ball, there must exist an optimal trajectory without leaving the outter ball. \\
   
-  This two balls have radius difference of $\frac{r_{min}•\pi}{2}$.
+  This two balls have radius difference of $\frac{r_{min}•\pi}{2}$.\\
+  
+  \section{A Planning Algorithm}
+  A possible non-optimal planning algorithm is as below:\\
+  
+  1. Sample a random sphere in workspace.
+  
+  2. Get the inner sphere of the previously sampled sphere.
+  
+  3. Sample spheres along the boundary of existing inner spheres.
+  
+  4. Repeat 1 - 3 until converege.
+  
+  5. Find a path using boundary points of these inner spheres.\\
+  
+  Suppose an algorithm gives a series of points $P_{1}, P_{2}, P_{3},...,P_{n}$ which are points that the car should go through. Then we can have the upper bound of total length of optimal path:\\
+  $L \leq (n-1)r_{min}\pi + \sum_{i=1}^{n-1}l_{i}$\\
+  $l_{i}$ being the distance between $P_{i}$ and $P_{i+1}$.\\
+  
+  \subsection{Problems to solve:}
+
+  1. How to minimize the number of points a car should go through?
+  
+  2. How to choose the orientation at each point such that the total upper bound of optimal path that goes through these points is minimized? 
+  
+  3. How to find the lower bound of optimal path between S and G?
+  
+  4. How to minimize the upper bound of path length found by algorithm, such that the upper bound is close to the lower bound?
+  
+  \includegraphics[scale=0.6]{path}\\
+  
   
 \end{document}
+
+
