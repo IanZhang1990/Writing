@@ -213,3 +213,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+*.aux
+
+Academic/Small Time Optimality/Small Time optimality.synctex.gz
