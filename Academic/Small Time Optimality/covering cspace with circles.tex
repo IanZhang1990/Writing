@@ -68,7 +68,9 @@
 
   Suppose in i-th circle, the change of orientation is $\theta_{i}$. There is always a N such that:\\
 
-  $\sum\limits_{i = 1}^N g(\theta_{i}) \geq \pi$\\
+  $\sum\limits_{i = 1}^N g(\theta_{i}) \geq \theta_{needed}$\\
+  
+  This means that if we can't make a turn that costs $\theta_{needed}$, we can go in and out the circle for several times.
 
   \section{Covering the narrow passage in c-space}
 
@@ -82,5 +84,26 @@
   
   \hspace*{-2cm}\includegraphics[scale=0.84]{CirclesCoveredPath}\\
 
+  In a narrow passage with $\delta$ clearance.( $\delta<\pi / 2$ ) If we are covering the space with circles of radius $r = \frac{\delta}{n}$:\\
+  
+  $g(\theta) = \pi - (r*k(2r) + \frac{\pi}{2} - \delta) = \pi - ( \frac{f(\frac{2\delta}{n})}{2} + \frac{\pi}{2} - \delta )$,\\
+  
+  $\frac{\pi}{2} - \delta \in (0, \frac{\pi}{2})$\\
+  
+  we want $\frac{f(\frac{2\delta}{n})}{2} \in (0, \frac{\pi}{2})$\\
+  
+  $\Longrightarrow$ $f(\frac{2\delta}{n}) \in (0, \pi)$\\
+  
+  n tends to be large. But we probably can find a heuristic n such that n is not too large, then we don't need too large clearance for an optimal path, nor too small, so we can get more close to obstacles.
+  
+  \section{Dealing with a big turn in a small circle }
+  
+  Sometimes you have to make a big turn in a small circle. As implied at the end of section 4, we can do it by leaving and entering the same circle several times. For diff drive, we can simply make the turn without moving. For RS car, we need to decide what are the points we leave and enter the circle.\\
+  
+  (To be continued....)
+  
+  \section{Estimating the cost of generated path and optimal path}
+  
+  (To be continued....)
 
 \end{document}
