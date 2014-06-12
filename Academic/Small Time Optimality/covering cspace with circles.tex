@@ -12,16 +12,36 @@
 \date{}
 \begin{document}
   \maketitle
+  
   \section{Model}
-	Define an estimate cost function for diff drive or R.S car as:
+
+    
+  
+  Define an approximate cost function for diff drive as:
 
   $C( d, \theta ) = f(d) + g(\theta)$
 
   where $d$ is the euclidean distance from start to goal and $\theta$ is the different of orientation. \\
 
-  $f(d) = k(d) * d$ is a monotonically decreasing function.
+  $f(d)$ is a monotonically decreasing function. We would like to write it in this form: $f(d) = k(d) * d$\\
 
   $g(\theta) \in [0, \pi]$
+  
+  \section{Optimal Path Upperbound}  
+  
+  Let S and G be start and goal positions. Consider two situations:\\
+  
+  1. Start and goal orientations are in different sides of straight line SG.\\
+  
+  \hspace*{2cm}\includegraphics[scale=0.8]{Path_general_case_2}\\
+  
+  Our strategy of moving the diff drive is: turn from start orientation to SG orientation, drive from S to G, then turn from SG orientation to G.\\
+  
+  The cost of such move is $|SG| + g(\theta)$, where $\theta$ is the difference of start and goal orientation, $g(\theta) \in [0, \pi]$.\\
+  
+  2. Start and goal orientations are in the same sides of straight line SG.\\
+  
+  \hspace*{2cm}\includegraphics[scale=0.8]{Path_general_case}\\
 
   \section{Outer Circle and Inner Circle}
   \includegraphics[scale=0.7]{Ellipse}\\
