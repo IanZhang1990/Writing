@@ -13,7 +13,7 @@
 \begin{document}
   \maketitle
   
-  \section{Five kinds of Diff Drive Strategy}
+  \section{Five Strategies of Diff Drive}
   
   Consider start configuration $q_{s} = (x,y,\theta)$ and goal configuration $q_{g} = (0,0,0)$, where $\theta \in [0, \frac{\pi}{2}]$. We can partition them into 8 partitions.
   
@@ -40,7 +40,7 @@
   \caption{Path when start position S is in partition A. }
   \end{figure}
   
-  The path in this case is A-A-S-T-S.
+  The path in this case is A-A-S-T-S. (see fig 1)
   
   The cost will be: 
   
@@ -58,7 +58,7 @@
   \caption{Path when start position S is in partition B or C.}
   \end{figure}
   
-  The path is S-A-A-T\\
+  The path is S-A-A-T. (see fig 2)\\
   
   Partition E:
   
@@ -68,7 +68,7 @@
   \caption{Path when start position S is in partition E.}
   \end{figure}
 
-  The path is A-A-S-T-S. \\
+  The path is A-A-S-T-S. (see fig. 3)\\
 
   Partition F and G:
   
@@ -78,12 +78,12 @@
   \caption{Path when start position S is in partition F or G.}
   \end{figure}
   
-  The path is A-A-S-T\\
+  The path is A-A-S-T. (see fig. 4)\\
   ffda
   \subsection{Cost and The Worst Cost}
 
   \begin{theorem}
-  	For a start configuration s = $(x_{s},y_{s},\theta)$, a goal configuration g = $(x_{g},y_{g},\theta)$ and a path $\sigma$ with length $l$. $\sigma$ cannot be the optimal path if $l > (\frac{\pi}{2} + 1) \cdot d$, where $d$ is the Euclidean distancce between start and goal position in work space.
+  	For a start configuration $q_{s} = (x_{s},y_{s},\theta)$, a goal configuration $q_{g} = (x_{g},y_{g},\theta)$ and a path $\sigma$ with length $l$. $\sigma$ cannot be the optimal path if $l > (\frac{\pi}{2} + 1) \cdot d$, where $d$ is the Euclidean distancce between start and goal position in work space.
   \end{theorem}
 
   Since the path's above guarantee the diff drive to reach the goal configuration. The cost of these path's can be view as upperbound cost of optimal path. Any path with cost larger than this cannot be optimal. \\
@@ -105,8 +105,6 @@
   \begin{theorem}
   	The maximum time for a diff drive to go from one config to another is $Whatever$.
   \end{theorem}
-  
-  
   
   %---------------------------------------------------------------------------
   % Theorem about the upper bound of a path being optimal.
